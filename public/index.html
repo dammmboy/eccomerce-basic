@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAMMBOYY WEAR</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body class="bg-gray-100 font-sans">
+  <nav class="bg-gray-300 px-4 py-3 flex items-center justify-between border-b-4 border-teal-200">
+    <div class="text-sm font-bold">DAMMBOYY WEAR</div>
+    <div class="flex-1 px-4">
+      <div class="flex bg-white rounded px-2 py-1 shadow items-center">
+        <i class="fas fa-search text-xl text-black mr-2"></i>
+        <input id="searchInput" type="text" placeholder="AYO CARI JACKET DI “Dammboyy Wear”" class="w-full text-sm text-gray-500 bg-transparent outline-none font-bold" />
+      </div>
+    </div>
+    <div class="ml-4">
+      <a href="register.html" class="bg-black text-white rounded text-sm px-3 py-1 hover:bg-gray-400">Register</a>
+    </div>
+  </nav>
+
+  <section class="bg-gray-100 text-center py-6">
+    <div class="mt-3 inline-block bg-white px-3 py-1 rounded-full font-bold text-black text-sm">
+    </div>
+    <div class="mt-4 flex justify-center gap-4 w-full h-full">
+      <img src="aset/image 86 (1).png" alt="" class="w-30 h-30">
+    </div>
+  </section>
+
+  <section class="p-4">
+    <h3 class="text-center text-xl font-bold mb-4">Produk Terbaru</h3>
+    <div id="productContainer" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      <!-- Produk dari API akan ditampilkan di sini -->
+    </div>
+  </section>
+
+  <footer class="bg-gray-200 py-10">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-xl font-semibold mb-6 text-gray-800">Popular Brands</h2>
+  
+      <div class="flex flex-wrap items-center justify-between gap-6 mb-8">
+        <img src="aset/Donation_Requests__45+_Awesome_Companies_Giving_Millions-removebg-preview.png" alt="Nordstrom" class="h-10">
+        <img src="aset/How_to_Use_Complementary_Colors_When_Creating_Your_Logo_-_Free_Logo_Design-removebg-preview.png" alt="Lacoste" class="h-10">
+        <img src="aset/Flexisole_Peep-Toe_Shoes-removebg-preview.png" alt="Cotton Traders" class="h-10">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/H%26M-Logo.svg" alt="H&M" class="h-10">
+      </div>
+  
+      <p class="text-sm text-gray-700 text-justify leading-relaxed">
+        Konsep bisnis Dammboy Wear menawarkan fashion dan kualitas dengan harga terbaik dan cara yang berkelanjutan.
+        Dammboy Wear sejak didirikan pada tahun 1947 tumbuh menjadi salah satu perusahaan fesyen terkemuka di dunia.
+        Seluruh isi dan informasi dari situs ini dilindungi hak cipta dan merupakan milik Dammboy Wear Adam Wibowo.
+        Layanan Pengaduan Konsumen, Direktorat Jenderal Perlindungan Konsumen dan Tertib Niaga,
+        Kementerian Perdagangan Republik Indonesia.
+      </p>
+    </div>
+  </footer>
+    
+
+  <script>
+    const API_URL = 'https://fakestoreapi.com/products';
+
+    fetch(API_URL)
+      .then(response => response.json())
+      .then(products => {
+        const container = document.getElementById('productContainer');
+        products.slice(0, 20).forEach(product => {
+          const div = document.createElement('div');
+          div.className = 'bg-white p-2 rounded shadow text-center';
+          div.innerHTML = `
+            <h4 class="text-sm font-bold line-clamp-1">${product.title}</h4>
+            <img src="${product.image}" alt="${product.title}" class="w-full h-32 object-contain mb-2">
+            <p class="text-red-600 line-through text-sm">Rp ${(product.price * 1.2).toFixed(3)}</p>
+            <p class="font-bold text-black">Rp ${product.price.toFixed(3)}</p>
+          `;
+          container.appendChild(div);
+        });
+      })
+      .catch(error => console.error('Error loading products:', error));
+  </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+ <title>Profil Pengguna</title>
+ <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-black min-h-screen flex justify-center items-center">
+ <div class="bg-gradient-to-b from-white to-gray-400 w-full max-w-4xl rounded-lg shadow-lg overflow-hidden">
+
+
+ <!-- Header -->
+ <div class="flex justify-between items-center px-4 py-2 bg-white border-b border-gray-300">
+ <div class="flex items-center space-x-2">
+ <span class="text-2xl">⚙</span>
+ <button class="text-black font-bold">Log out</button>
+ </div>
+ <div class="text-xl font-bold">Adam Wibowo</div>
+ </div>
+
+
+ <!-- Konten -->
+ <div class="flex flex-col md:flex-row items-center md:items-start p-6 space-y-6 md:space-y-0 md:space-x-10">
+
+
+ <!-- Form Info -->
+ <div class="flex-1 space-y-4">
+ <div>
+ <label class="text-sm font-semibold">Nama pengguna</label>
+ <input type="text" value="Adam Wibowo" readonly class="block w-full px-4 py-2 rounded-full bg-white shadow-md"/>
+ </div>
+ <div>
+ <label class="text-sm font-semibold">Email</label>
+ <div class="flex items-center">
+ <input type="email" id="email" value=" adamw@gmail.com" class="block w-full px-4 py-2 rounded-full bg-white shadow-md flex-1"/>
+ <button class="ml-2 px-4 py-2 rounded-full bg-green-500 text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400">Simpan</button>
+ </div>
+ </div>
+ <div>
+ <label class="text-sm font-semibold">No telepon</label>
+ <input type="text" value="08780*7**77" readonly class="block w-full px-4 py-2 rounded-full bg-white shadow-md"/>
+ </div>
+ <div>
+ <label class="text-sm font-semibold">Alamat</label>
+ <div class="flex items-center">
+ <input type="text" id="alamat" value="Alamat Anda" class="block w-full px-4 py-2 rounded-full bg-white shadow-md flex-1"/>
+ <button class="ml-2 px-4 py-2 rounded-full bg-green-500 text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400">Simpan</button>
+ </div>
+ </div>
+ </div>
+
+
+ <!-- Avatar -->
+ <div class="flex-shrink-0">
+ <img src="aset/man.png" alt="Avatar"
+ class="rounded w-20 h-20 mx-auto" />
+ </div>
+ </div>
+
+
+ <!-- Ganti PIN -->
+ <div class="px-6 mt-2">
+ <div class="flex items-center space-x-2 mb-2">
+ <span class="text-2xl">🔑</span>
+ <h3 class="text-lg font-semibold border-b border-gray-600 inline-block">Ganti pin</h3>
+ </div>
+ </div>
+
+
+ <!-- Opsi -->
+ <div class="grid grid-cols-3 gap-4 bg-black text-white text-center py-4 px-6">
+ <button class="py-2 hover:bg-gray-700">Perempuan</button>
+ <button class="py-2 hover:bg-gray-700">Laki-Laki</button>
+ <button class="py-2 hover:bg-gray-700">Rahasia</button>
+ </div>
+
+
+ </div>
+</body>
+</html>

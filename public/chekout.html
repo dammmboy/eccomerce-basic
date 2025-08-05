@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout - DAMMBOYY WEAR</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 font-sans text-sm">
+
+  <div class="max-w-2xl mx-auto bg-white p-4 my-8">
+    
+    <!-- Header -->
+    <div class="bg-black text-white p-3 font-bold text-center">
+      DammboyyWear
+    </div>
+
+    <!-- Informasi Alamat -->
+    <div class="bg-gray-100 p-4 my-4 rounded">
+      <p class="font-bold"> dammboyy <span class="text-gray-500">(087804571177)</span></p>
+      <p class="text-gray-600 mt-1 text-xs">
+        jalan Kesenian 1, Kelapa Dua. 245,<br />
+        Gang Kesenian 2 RT 03/RW 13, kota depok, jawa barat 16457
+      </p>
+    </div>
+
+    <!-- Daftar Produk -->
+    <div id="produkCheckout" class="space-y-3">
+      <!-- Diisi lewat JavaScript -->
+    </div>
+
+    <!-- Rincian Harga Produk -->
+    <div class="my-4 border p-4">
+      <div id="rincianProduk" class="space-y-1 text-sm">
+        <!-- Diisi lewat JavaScript -->
+      </div>
+      <hr class="my-2" />
+      <div class="flex justify-between font-bold">
+        <span>Total pembayaran</span>
+        <span id="totalPembayaran" class="text-black"><Rp86 class="00"></Rp86></span>
+      </div>
+    </div>
+
+    <!-- Metode Pembayaran -->
+    <div class="bg-gray-100 p-4 my-4 rounded">
+      <h3 class="font-bold mb-2">Metode pembayaran</h3>
+      <div class="flex gap-6 items-center">
+        <img src="aset/f58ca3528b238877e9855fcac1daa328.jpg" alt="Dana" class="h-10" />
+        <img src="aset/images.png" alt="Gopay" class="h-6" />
+      </div>
+    </div>
+
+    <!-- Rincian Pembayaran -->
+    <div class="bg-gray-100 p-4 rounded">
+      <h3 class="font-bold mb-2">Rincian pembayaran</h3>
+      <div class="space-y-1 text-sm">
+        <div class="flex justify-between">
+          <span>Subtotal untuk produk</span>
+          <span id="subtotalProduk"><Rp86 class="00"></Rp></span>
+        </div>
+        <div class="flex justify-between">
+          <span>Sub total pengiriman</span>
+          <span id="ongkir">Rp10.000</span>
+        </div>
+        <div class="flex justify-between">
+          <span>Biaya pelayanan</span>
+          <span id="biayaLayanan">Rp5.000</span>
+        </div>
+        <div class="flex justify-between">
+          <span>Voucher diskon</span>
+          <span id="diskon" class="text-red-500">-Rp5.000</span>
+        </div>
+      </div>
+      <hr class="my-2" />
+      <div class="flex justify-between font-bold">
+        <span>Total pembayaran</span>
+        <span id="totalBayar" class="text-black">Rp 86.000</span>
+      </div>
+    </div>
+
+    <!-- Button -->
+    <div class="text-right mt-4">
+      <button class="bg-black text-white px-5 py-2 text-sm font-semibold hover:bg-gray-800 transition rounded">
+        Buat Pesanan
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const produkContainer = document.getElementById("produkCheckout");
+    const rincianProduk = document.getElementById("rincianProduk");
+
+    let subtotal = 0;
+    const ongkir = 10000;
+    const biayaLayanan = 5000;
+    const diskon = 5000;
+
+    if (cart.length === 0) {
+      produkContainer.innerHTML = `<p class="text-center text-red-500">Keranjang kosong</p>`;
+    } else {
+      cart.forEach(item => {
+        const totalItem = item.qty * item.price;
+        subtotal += totalItem;
+
+        // Tampilkan produk
+        const div = document.createElement("div");
+        div.className = "flex items-center border p-3 gap-4";
+        div.innerHTML = `
+          <img src="${item.image}" alt="${item.title}" class="w-20 h-20 object-cover" />
+          <div class="flex-1">
+            <h3 class="font-bold">${item.title}</h3>
+            <p class="text-black text-sm">x${item.qty}</p>
+            <p class="text-black font-bold">Rp ${totalItem.toLocaleString("id-ID")}</p>
+          </div>
+        `;
+        produkContainer.appendChild(div);
+
+        // Tambahkan ke rincian harga
+        const detail = document.createElement("div");
+        detail.className = "flex justify-between";
+        detail.innerHTML = `
+          <span>${item.title} x${item.qty}</span>
+          <span>Rp ${totalItem.toLocaleString("id-ID")}</span>
+        `;
+        rincianProduk.appendChild(detail);
+      });
+    }
+
+    // Update total dan rincian pembayaran
+    const totalBayar = subtotal + ongkir + biayaLayanan - diskon;
+    document.getElementById("subtotalProduk").textContent = `Rp ${subtotal.toLocaleString("id-ID")}`;
+    document.getElementById("totalPembayaran").textContent = `Rp ${totalBayar.toLocaleString("id-ID")}`;
+    document.getElementById("totalBayar").textContent = `Rp ${totalBayar.toLocaleString("id-ID")}`;
+  </script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Produk - DAMMBOYY WEAR</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <!-- Navbar -->
+  <nav class="bg-gray-300 px-4 py-3 flex items-center justify-between border-b-4 border-teal-200">
+    <div class="text-sm font-bold">DAMMBOYY WEAR</div>
+    <div class="flex-1 px-4">
+      <div class="flex bg-white rounded px-2 py-1 shadow items-center">
+        <input type="text" placeholder="cari produk...." class="w-full text-sm text-gray-500 bg-transparent outline-none font-bold" />
+      </div>
+    </div>
+    <div class="ml-4 flex items-center space-x-4">
+      <!-- Ikon Keranjang -->
+      <a href="keranjang.html" class="text-black hover:text-blue-600 text-xl">
+        <i class="fas fa-shopping-cart"></i>
+      </a>
+      <!-- Ikon Profil -->
+      <a href="profil.html" class="text-black hover:text-blue-600 text-xl">
+        <i class="fas fa-user"></i>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Detail Produk -->
+  <section id="productDetail" class="bg-white rounded-xl m-4 p-4 shadow"></section>
+
+  <!-- Script ambil data dari URL dan API -->
+  <script>
+    const container = document.getElementById('productDetail');
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get('id');
+
+    if (productId) {
+      fetch(`https://fakestoreapi.com/products/${productId}`)
+        .then(res => res.json())
+        .then(product => {
+          container.innerHTML = `
+            <div class="flex flex-col md:flex-row gap-6">
+              <img src="${product.image}" alt="${product.title}" class="w-60 object-contain rounded-md" />
+              <div class="flex-1 space-y-3">
+                <h2 class="font-semibold text-lg">${product.title}</h2>
+                <div class="text-red-600 font-bold text-xl">Rp ${product.price.toFixed(3)}</div>
+                <p class="text-gray-700 text-sm">${product.description}</p>
+
+                <div class="mt-2">
+                  <p class="text-sm font-semibold">Ukuran</p>
+                  <div class="grid grid-cols-4 gap-2 mt-1 text-sm">
+                    <button class="size-btn border px-2 py-1 rounded bg-black text-white hover:bg-gray-700">S</button>
+                    <button class="size-btn border px-2 py-1 rounded bg-black text-white hover:bg-gray-700">M</button>
+                    <button class="size-btn border px-2 py-1 rounded bg-black text-white hover:bg-gray-700">L</button>
+                    <button class="size-btn border px-2 py-1 rounded bg-black text-white hover:bg-gray-700">XL</button>
+                  </div>
+                </div>
+
+                <div class="flex gap-4 mt-4">
+                  <button id="addToCartBtn" class="px-4 py-2 bg-gray-500 text-white rounded text-sm hover:bg-gray-600">Masukkan Keranjang</button>
+                  <a href="chekout.html" class="px-4 py-2 bg-black text-white rounded text-sm hover:bg-gray-700">Beli Sekarang</a>
+                </div>
+              </div>
+            </div>
+          `;
+
+          // Tambahkan event listener untuk tombol keranjang
+          setTimeout(() => {
+            document.getElementById("addToCartBtn").addEventListener("click", () => {
+              let cart = JSON.parse(localStorage.getItem("cart")) || [];
+              const selectedProduct = {
+                id: product.id,
+                title: product.title,
+                price: product.price,
+                image: product.image,
+                qty: 1
+              };
+
+              const existing = cart.find(item => item.id === product.id);
+              if (existing) {
+                existing.qty += 1;
+              } else {
+                cart.push(selectedProduct);
+              }
+
+              localStorage.setItem("cart", JSON.stringify(cart));
+              alert("Produk ditambahkan ke keranjang!");
+            });
+          }, 500);
+        })
+        .catch(error => {
+          container.innerHTML = `<p class="text-red-600">Gagal memuat data produk.</p>`;
+          console.error('Error:', error);
+        });
+    } else {
+      container.innerHTML = `<p class="text-red-600">Produk tidak ditemukan.</p>`;
+    }
+  </script>
+
+</body>
+</html>
